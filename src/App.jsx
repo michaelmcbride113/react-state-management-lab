@@ -97,7 +97,25 @@ const App = () => {
     }
     setTeam([...team, fighter]);
     setMoney(money - fighter.price);
-  }
+    const updatedZombieFighters = zombieFighters.filter(
+      (zombieFighter) => zombieFighter.id !== fighter.id
+    );
+    setZombieFighters(updatedZombieFighters);
+  };
+
+  const handleRemoveFighter = (fighter) => {
+    const updatedTeam = team.filter(
+      (zombieFighter) => zombieFighter.id !== fighter.id
+    );
+    setTeam(updatedTeam);
+  
+    const updatedZombieFighters = [...zombieFighters, fighter];
+    
+    setZombieFighters(updatedZombieFighters);
+      setMoney(money + fighter.price);
+  };
+  
+
 
   let totalStrength = 0;
   for (let i = 0; i < team.length; i++) {
@@ -107,6 +125,7 @@ const App = () => {
   for (let i = 0; i < team.length; i++) {
     totalAgility += team[i].agility;
   }
+
 
   return (
     <div>
@@ -123,6 +142,9 @@ const App = () => {
             <p>Price: ${fighter.price}</p>
             <p>Strength: {fighter.strength}</p>
             <p>Agility: {fighter.agility}</p>
+            <button onClick={() => handleRemoveFighter(fighter)}> 
+            Remove</button>
+
         </li>
       ))}
     </ul>
